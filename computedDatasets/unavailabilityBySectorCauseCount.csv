@@ -1,0 +1,16 @@
+filiere,cause,count
+Fuel / TAC,Arrêt / fermeture,1
+Charbon,Arrêt / fermeture,1
+Gaz fossile,Maintenance,7
+Gaz fossile,Défaillance,9
+Fuel / TAC,Défaillance,12
+Charbon,Informations complémentaires,21
+Fuel / TAC,Maintenance,24
+Fuel / TAC,Informations complémentaires,63
+Nucléaire,Défaillance,70
+Nucléaire,Maintenance,81
+Gaz fossile,Informations complémentaires,83
+Hydraulique,Défaillance,112
+Hydraulique,Informations complémentaires,903
+Hydraulique,Maintenance,1594
+Nucléaire,Informations complémentaires,2704

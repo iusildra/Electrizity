@@ -1,0 +1,21 @@
+filiere,cause,kind,sum_impact
+Nucléaire,Informations complémentaires,Chronique,0.0
+Fuel / TAC,Arrêt / fermeture,Planifiée,0.0
+Fuel / TAC,Informations complémentaires,Fortuite,3.8999999999999994E-4
+Charbon,Informations complémentaires,Fortuite,5.8E-4
+Charbon,Arrêt / fermeture,Planifiée,5.8E-4
+Fuel / TAC,Défaillance,Fortuite,0.002078
+Gaz fossile,Maintenance,Planifiée,0.00271
+Fuel / TAC,Maintenance,Planifiée,0.0030859999999999998
+Gaz fossile,Informations complémentaires,Fortuite,0.003212
+Gaz fossile,Défaillance,Fortuite,0.004267000000000001
+Fuel / TAC,Informations complémentaires,Planifiée,0.007130999999999999
+Charbon,Informations complémentaires,Planifiée,0.00928
+Gaz fossile,Informations complémentaires,Planifiée,0.017183000000000004
+Hydraulique,Défaillance,Fortuite,0.018623879999999992
+Nucléaire,Informations complémentaires,Fortuite,0.03501899999999999
+Nucléaire,Défaillance,Fortuite,0.041203
+Nucléaire,Maintenance,Planifiée,0.044796999999999976
+Hydraulique,Informations complémentaires,Planifiée,0.17127950000000092
+Nucléaire,Informations complémentaires,Planifiée,0.2509079999999998
+Hydraulique,Maintenance,Planifiée,0.28879231000000055

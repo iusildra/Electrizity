@@ -1,0 +1,248 @@
+\documentclass[english,12pt,twoside,a4paper]{report}
+\usepackage[semibold]{sourcesanspro}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{sectsty}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{xcolor} % où xcolor selon l'installation
+\usepackage{scrextend} % Forcer la 4eme  de couverture en page pair
+\usepackage{multirow} %% Pour mettre un texte sur plusieurs rangées
+\usepackage[absolute]{textpos} 
+\usepackage{graphicx, wrapfig}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{ulem, contour}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{multicol, multicolrule}
+\usepackage{caption, subcaption}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{adjustbox}
+\usepackage[indent=20pt]{parskip}
+\usepackage{courier}
+\usepackage{nameref}
+\usepackage{lastpage}
+\usepackage{pifont}
+
+\definecolor{Valentia}{RGB}{233,78,82}
+\definecolor{Titleblue}{RGB}{114, 146, 162}
+
+\SetMCRule{extend-fill=false}
+
+\graphicspath{{./img}, {../plots/}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyheadoffset{0.005\textwidth}
+\fancyhead[LE,RO]{\slshape \rightmark}
+\fancyhead[LO,RE]{\slshape \leftmark}
+\lfoot{My Chief Cook SOME TITLE}
+\rfoot{Page \thepage\ of \pageref*{LastPage}}
+
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{blue}{rgb}{0,0,1}
+\hypersetup{
+	colorlinks=true,
+	breaklinks=true,
+	linkcolor=black,
+	urlcolor=cyan,
+	pdftitle={My Chief Cook SOME TITLE}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\lstdefinestyle{myStyle}{
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{codegreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  firstnumber=1,                   % start line enumeration with line 1
+  frame=tb,                        % adds a frame around the code
+  framerule=0.25pt,                % frame thickness
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=java,                   % the language of the code
+  gobble=2,                        % the number of blank spaces before code
+  morekeywords={},                 % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{black},  % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{codepurple},  % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+}
+
+\lstset{style=myStyle}
+
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+\newcommand{\ul}[1]{%
+	\uline{\phantom{#1}}%
+	\llap{\contour{white}{#1}}%
+}
+
+\renewcommand{\footrulewidth}{1pt}
+\captionsetup{labelfont={it, bf}, textfont={it}}
+\urlstyle{same}
+
+\newcommand{\resizeW}[1]{\resizebox{\linewidth}{!}{#1}}
+
+\newcommand{\image}[4]{
+  \begin{figure}[ht]
+    \centering
+    \fbox{\includegraphics[width=#2\linewidth]{#1}}
+    \caption{#3}
+    \label{fig:#4}
+  \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \titleformat{\section}
+% {\titlerule
+% \vspace{.8ex}%
+% \Large\bfseries}
+% {\thesection.}{.5em}{}
+
+% \titleformat{\part}[display]
+% {\bfseries\Large}
+% {\filleft PARTIE \Huge\thepart}
+% {0ex}
+% {\titlerule
+% \vspace{1ex}%
+% \filright}
+% [\vspace{1ex}%
+% \titlerule]
+
+\captionsetup{labelfont={it, bf}, textfont={it}}
+\setlength{\headheight}{15pt}
+\setcounter{tocdepth}{1}
+
+\begin{document}
+
+\begin{titlepage}
+
+  \newgeometry{left=2.5cm, bottom=3cm, top=2cm, right=2.5cm}
+
+  \tikz[remember picture,overlay] \node[opacity=1,inner sep=0pt] at (73.6mm, -124.25mm){\includegraphics{Fond.pdf}};
+
+  {\fontfamily{phv}\fontseries{mc}\selectfont
+  %*****************************************************
+  %******************** TITRE **************************
+  %*****************************************************
+  \centering
+  \color{Valentia}
+  \fontsize{18}{13}\selectfont
+  \textbf{Projet Data Science}
+
+  \normalsize
+  \color{black}
+
+  \bigskip
+  \textbf{Computer Science and Management}
+
+  \bigskip
+  \textbf{Polytech Montpellier}
+
+  \bigskip
+
+  \color{Titleblue}
+  \fontsize{17}{20.4}\selectfont
+  \vspace{4cm}
+  \textbf{RAPPORT FINAL}\\
+
+  %*****************************************************
+
+  \vspace{4cm}
+  \fontsize{15}{18}\selectfont
+  \color{black}
+  \textbf{Encadré par}\\
+  \fontsize{12}{16}\selectfont
+  \textbf{Mme. Anne Laurent}\\
+  \textbf{Mme. Gwladys Toulemonde}
+  \bigskip
+
+  \vspace{2cm}
+  \normalsize
+  \textbf{Presented by}\\
+  \bigskip
+  \fontsize{10}{12}\selectfont
+  \vspace{1.5mm}
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{p{8cm}r}
+      \toprule
+      \textbf{Maxime Stefani}      & \textbf{[]}          \\
+      \textbf{Dorian Correia-Mateus} & \textbf{[]}       \\
+      \textbf{Richard Martin}         & \textbf{[]} \\
+      \textbf{Lucas Nouguier}        & \textbf{[]} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  %************************************
+  %**  LOGO  UNIVERSITÉ
+  %*****************************************************
+  \vspace{\fill}
+  \begin{center}
+    \includegraphics[height=60px]{LogoPolytech.png}
+    \hfill
+    \includegraphics[height=65px]{LogoUM.png}
+  \end{center}
+  }
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newgeometry{top=2cm, bottom=2.5cm, left=2cm, right=2cm}
+\setlength{\columnsep}{1cm}
+\tableofcontents
+\clearpage
+
+\part{Introduction}
+\chapter{Contexte}
+\chapter{Objectifs}
+\chapter{Méthodologie}
+\chapter{Présentation des données}
+\chapter{Résultats}
+\part{Analyse des données}
+\chapter{Analyse exploratoire}
+\section{EDF}
+\subsection{Centrales hydrauliques - Débit des rivières}
+Débit des rivières en France métropolitaine pendant le XXe siècle.
+\subsubsection{Idées}
+\begin{itemize}
+  \item Moyenne et total des débits des rivières selon plusieurs granularités :
+  \begin{itemize}
+    \item Année
+    \item Mois
+    \item Année \& Mois
+  \end{itemize}
+  \item Courbe de Gauss évolutive selon les années pour étudier la répartition des débits au cours du temps
+\end{itemize}
+
+\subsubsection{Résultats}
+\paragraph{Moyenne et total par année \& mois} Inexploitable, trop de données
+
+\paragraph{Moyenne et total par année} tendance montante, à mettre en relief avec les constructions de centrales hydrauliques. Plus visible sur le total que sur la moyenne => plus de petite centrales que de grosses ?
+
+\paragraph{Moyenne et total par mois} tendance cyclique (liée à la disponibilité en eau donc aux saisons) => trouver une sinusoïdale proche ?
+
+
+
+\end{document}

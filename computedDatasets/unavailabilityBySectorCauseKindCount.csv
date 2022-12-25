@@ -1,0 +1,21 @@
+filiere,cause,kind,count
+Charbon,Informations complémentaires,Fortuite,1
+Fuel / TAC,Arrêt / fermeture,Planifiée,1
+Charbon,Arrêt / fermeture,Planifiée,1
+Fuel / TAC,Informations complémentaires,Fortuite,3
+Gaz fossile,Maintenance,Planifiée,7
+Gaz fossile,Défaillance,Fortuite,9
+Fuel / TAC,Défaillance,Fortuite,12
+Gaz fossile,Informations complémentaires,Fortuite,13
+Charbon,Informations complémentaires,Planifiée,20
+Fuel / TAC,Maintenance,Planifiée,24
+Fuel / TAC,Informations complémentaires,Planifiée,60
+Nucléaire,Informations complémentaires,Fortuite,62
+Gaz fossile,Informations complémentaires,Planifiée,70
+Nucléaire,Défaillance,Fortuite,70
+Nucléaire,Maintenance,Planifiée,81
+Hydraulique,Défaillance,Fortuite,112
+Nucléaire,Informations complémentaires,Planifiée,263
+Hydraulique,Informations complémentaires,Planifiée,903
+Hydraulique,Maintenance,Planifiée,1594
+Nucléaire,Informations complémentaires,Chronique,2379

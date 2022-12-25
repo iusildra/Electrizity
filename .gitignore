@@ -1,0 +1,10 @@
+/datasets
+.idea/
+.bloop/
+.metals/
+.vscode/
+project/
+target/
+*.csv/
+.bsp/
+computedDatasetsTemp/

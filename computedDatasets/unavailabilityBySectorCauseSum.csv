@@ -1,0 +1,16 @@
+filiere,cause,sum_impact
+Fuel / TAC,Arrêt / fermeture,0.0
+Charbon,Arrêt / fermeture,5.8E-4
+Fuel / TAC,Défaillance,0.002078
+Gaz fossile,Maintenance,0.00271
+Fuel / TAC,Maintenance,0.0030859999999999998
+Gaz fossile,Défaillance,0.004267000000000001
+Fuel / TAC,Informations complémentaires,0.007521000000000001
+Charbon,Informations complémentaires,0.00986
+Hydraulique,Défaillance,0.018623879999999992
+Gaz fossile,Informations complémentaires,0.020395000000000007
+Nucléaire,Défaillance,0.041203
+Nucléaire,Maintenance,0.044796999999999976
+Hydraulique,Informations complémentaires,0.17127950000000092
+Nucléaire,Informations complémentaires,0.28592699999999993
+Hydraulique,Maintenance,0.28879231000000055
