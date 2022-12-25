@@ -1,0 +1,61 @@
+---
+title: "Nombre d'installations d'électricité et de gaz"
+author: "Dorian"
+date: "2022-12-25"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+library(tidyverse)
+library(fpp2)
+
+transform <- read.csv("datasets/installations-production-elec-gaz.csv", sep=";")
+transform["s_3_prod_d_filiere"][transform["s_3_prod_d_filiere"] == "Therm"] <- "Thermique"
+transform <- transform[, !names(transform) %in% c("code_epci", "s_3_prod_i_regime_d_exploitation", "1_f_code_insee_pdl", "X1_f_code_insee_pdl")]
+names(transform)[names(transform) == "1_f_commune_pdl"] <- "commune"
+names(transform)[names(transform) == "X1_f_commune_pdl"] <- "commune"
+names(transform)[names(transform) == "date_des_donnees"] <- "date"
+names(transform)[names(transform) == "s_3_prod_d_filiere"] <- "filiere"
+
+#write.csv2(transform, "insta-prod-elec-gaz-nettoye.csv", row.names=TRUE)
+
+tranform <- transform[, !names(transform) %in% "coordonnees"]
+transform <- aggregate(count ~ filiere+date, transform, sum)
+transform <- arrange(transform ,filiere)
+write.csv2(transform, "computedDatasets/countInstallationByFiliereAndDate.csv", row.names=TRUE)
+
+ins <- read.csv("computedDatasets/countInstallationByFiliereAndDate.csv", sep=";")
+
+insSolaire <- ins %>% filter(filiere %in%  "Solaire")
+insMarinGeothermie <- ins %>% filter(filiere %in%  c("Marin", "Géothermie", "Energies Marines"))
+insNucleaireGazAutre <- ins %>% filter(filiere %in%  c("Nucléaire", "Gaz", "Autre"))
+insRestre <- ins %>% filter(!(filiere %in%  c("Solaire", "Marin", "Géothermie", "Energies Marines", "Nucléaire", "Gaz", "Autre")))
+```
+
+# Solaire
+
+``` {r plot1, echo=FALSE}
+ggplot(insSolaire, aes(x=date,y=count, group=filiere, color=filiere)) +
+  geom_line()
+```
+
+# Marin et Géothermie
+
+``` {r plot2, echo=FALSE}
+ggplot(insMarinGeothermie, aes(x=date,y=count, group=filiere, color=filiere)) +
+  geom_line()
+```
+
+# Nucléaire, Gaz et Autre
+
+``` {r plot3, echo=FALSE}
+ggplot(insNucleaireGazAutre, aes(x=date,y=count, group=filiere, color=filiere)) +
+  geom_line()
+```
+
+# Le reste
+
+``` {r plot4, echo=FALSE}
+ggplot(insRestre, aes(x=date,y=count, group=filiere, color=filiere)) +
+  geom_line()
+```
