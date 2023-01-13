@@ -84,13 +84,28 @@ shinyServer(function(input, output) {
   })
 
   output$mymap <- renderLeaflet({
-    coord1119 <- aggregate(consommation_MWh ~ departement+centroid, data1119, sum)
-    coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
-    coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
-    coord1119 <- coord1119[complete.cases(coord1119), ]
-    leaflet("map", data=coord1119 ,width = "75%", height = "500px") %>% 
-      addTiles() %>% 
-      addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
-                 label = ~paste(departement, " : ", consommation_MWh, " MWh"), radius = ~sqrt(consommation_MWh)*5)
+    data1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
+    if(input$varChoice == "Consommation") {
+      coord1119 <- aggregate(consommation_MWh ~ departement+centroid, data1119, sum)
+      coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
+      coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
+      coord1119 <- coord1119[complete.cases(coord1119), ]
+      leaflet(coord1119) %>% 
+        addTiles() %>% 
+        addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
+                   label = ~paste(departement, " : ", consommation_MWh, " MWh"), radius = ~sqrt(consommation_MWh)*5)
+      
+    }
+    else {
+      coord1119 <- aggregate(pdl ~ departement+centroid, data1119, sum)
+      coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
+      coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
+      coord1119 <- coord1119[complete.cases(coord1119), ]
+      leaflet(coord1119) %>% 
+        addTiles() %>% 
+        addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
+                   label = ~paste(departement, " : ", pdl, " pdl"), radius = ~sqrt(pdl)*25)
+    }
+    
   })
 })
