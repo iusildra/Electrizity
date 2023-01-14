@@ -9,18 +9,18 @@ shinyServer(function(input, output) {
   
   output$totalPlot <- renderPlot({
     total1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
-    if(input$varChoice == "Consommation") {
-      total1119 <- aggregate(consommation_MWh ~ annee, total1119, sum)
-      ggplot(total1119, 
-             aes(x=annee, y=consommation_MWh)) +
-        geom_line()
-    }
-    else {
-      total1119 <- aggregate(pdl ~ annee, total1119, sum)
-      ggplot(total1119, 
-             aes(x=annee, y=pdl)) +
-        geom_line()
-    }
+    #if(input$varChoice == "Consommation") {
+    total1119 <- aggregate(consommation_MWh ~ annee, total1119, sum)
+    ggplot(total1119, 
+           aes(x=annee, y=consommation_MWh)) +
+      geom_line()
+    #}
+    #else {
+    #  total1119 <- aggregate(pdl ~ annee, total1119, sum)
+    #  ggplot(total1119, 
+    #         aes(x=annee, y=pdl)) +
+    #    geom_line()
+    #}
   })
   
   output$regionPlot <- renderPlot({
@@ -42,70 +42,60 @@ shinyServer(function(input, output) {
   output$departementPlot <- renderPlot({
     departement1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
     
-    if(input$varChoice == "Consommation") {
-      departement1119 <- aggregate(consommation_MWh ~ departement+annee, departement1119, sum)
-      ggplot(departement1119, 
-             aes(x=annee, y=consommation_MWh, color=departement)) +
-        geom_line() +
-        xlab("Année")+
-        ylab("Consommation en MWh")
-    }
-    else {
-      departement1119 <- aggregate(pdl ~ departement+annee, departement1119, sum)
-      ggplot(departement1119, 
-             aes(x=annee, y=pdl, color=departement)) +
-        geom_line() +
-        xlab("Année")+
-        ylab("Nombre de points de livraisons")
-    }
+    departement1119 <- aggregate(consommation_MWh ~ departement+annee, departement1119, sum)
+    ggplot(departement1119, 
+           aes(x=annee, y=consommation_MWh, color=departement)) +
+      geom_line() +
+      xlab("Année")+
+      ylab("Consommation en MWh")
     
   })
   
   output$categoriePlot <- renderPlot({
     categorie1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
-    
-    if(input$varChoice == "Consommation") {
-      categorie1119 <- aggregate(consommation_MWh ~ categorie+annee, categorie1119, sum)
-      ggplot(categorie1119, 
-             aes(x=annee, y=consommation_MWh, color=categorie)) +
-        geom_line() +
-        xlab("Année")+
-        ylab("Consommation en MWh")
-    }
-    else {
-      categorie1119 <- aggregate(pdl ~ categorie+annee, categorie1119, sum)
-      ggplot(categorie1119, 
-             aes(x=annee, y=pdl, color=categorie)) +
-        geom_line() +
-        xlab("Année")+
-        ylab("Nombre de points de livraisons")
-    }
+
+    categorie1119 <- aggregate(consommation_MWh ~ categorie+annee, categorie1119, sum)
+    ggplot(categorie1119, 
+           aes(x=annee, y=consommation_MWh, color=categorie)) +
+      geom_line() +
+      xlab("Année")+
+      ylab("Consommation en MWh")
+
     
   })
 
-  output$mymap <- renderLeaflet({
+  output$departementMap <- renderLeaflet({
     data1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
-    if(input$varChoice == "Consommation") {
-      coord1119 <- aggregate(consommation_MWh ~ departement+centroid, data1119, sum)
-      coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
-      coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
-      coord1119 <- coord1119[complete.cases(coord1119), ]
-      leaflet(coord1119) %>% 
-        addTiles() %>% 
-        addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
-                   label = ~paste(departement, " : ", consommation_MWh, " MWh"), radius = ~sqrt(consommation_MWh)*5)
-      
-    }
-    else {
-      coord1119 <- aggregate(pdl ~ departement+centroid, data1119, sum)
-      coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
-      coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
-      coord1119 <- coord1119[complete.cases(coord1119), ]
-      leaflet(coord1119) %>% 
-        addTiles() %>% 
-        addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
-                   label = ~paste(departement, " : ", pdl, " pdl"), radius = ~sqrt(pdl)*25)
-    }
+
+    coord1119 <- aggregate(consommation_MWh ~ departement+centroid+habitant_departement, data1119, sum)
+    coord1119$centroidLng <- as.numeric(gsub("^.*?,","",coord1119$centroid))
+    coord1119$centroidLat <- as.numeric(gsub(",.*","",coord1119$centroid))
+    coord1119 <- coord1119[complete.cases(coord1119), ]
+    
+    leaflet(coord1119) %>% 
+      addTiles() %>% 
+      addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
+                 label = ~paste(departement, " : ", format(round(consommation_MWh/habitant_departement, 3), nsmall = 3), " MWh/habitant"), radius = ~((consommation_MWh/habitant_departement)*5000))
+    
+                 #label = ~paste(departement, " : ", consommation_MWh, " MWh"), radius = ~sqrt(consommation_MWh)*5)
+  })
+  output$regionMap <- renderLeaflet({
+    data1119 <- subset(data1119, annee >= input$anneelim[1] & annee <= input$anneelim[2])
+    
+    region1119<- aggregate(consommation_MWh ~ region+habitant_region, data1119, sum)
+    
+    data1119$centroidLng <- as.numeric(gsub("^.*?,","",data1119$centroid))
+    data1119$centroidLat <- as.numeric(gsub(",.*","",data1119$centroid))
+    centroidLng <- aggregate(centroidLng ~ region, data1119, mean)
+    centroidLat <- aggregate(centroidLat ~ region, data1119, mean)
+    
+    region1119 <- merge(region1119, centroidLng, by= "region")
+    region1119 <- merge(region1119, centroidLat, by= "region")
+    
+    leaflet(region1119) %>% 
+      addTiles() %>% 
+      addCircles(lng=~centroidLng, lat=~centroidLat, stroke = FALSE, fillOpacity= 0.7,
+                 label = ~paste(region, " : ", format(round(consommation_MWh/habitant_region, 3), nsmall = 3), " MWh/habitant"), radius = ~((consommation_MWh/habitant_region)*12000))
     
   })
 })

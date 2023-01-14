@@ -6,15 +6,12 @@ shinyUI(fluidPage(
 
     titlePanel("Consommation de Gaz en France entre 2011 et 2019"),
 
-    sidebarLayout(
-        sidebarPanel(
-          sliderInput("anneelim",
-            "Années comprises entre:",
-            min = 2011, max = 2019,
-            value = c(2011, 2019)),
-        ),
-        radioButtons("varChoice", "Choix de variables",
-          choices = c("Consommation", "Point de livraison"), selected = "Consommation")
+
+    sidebarPanel(
+      sliderInput("anneelim",
+        "Années comprises entre:",
+        min = 2011, max = 2019,
+        value = c(2011, 2019)),
     ),
     
     mainPanel(
@@ -24,7 +21,8 @@ shinyUI(fluidPage(
           tabPanel("Région", plotOutput("regionPlot")),
           tabPanel("Département",  plotOutput("departementPlot")),
           tabPanel("Catégorie",  plotOutput("categoriePlot")),
-          tabPanel("Carte Département", leafletOutput("mymap"))
+          tabPanel("Carte Département", leafletOutput("departementMap")),
+          tabPanel("Carte Région", leafletOutput("regionMap"))
         )
       )
     )
