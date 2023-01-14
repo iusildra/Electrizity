@@ -1,0 +1,26 @@
+---
+title: "Untitled"
+author: "Dorian"
+date: "2023-01-14"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+#gaz
+
+#élec
+library(tidyverse)
+library(FactoMineR)
+data <- read.csv("computedDatasets/TemperatureConsoElec_Mois2011_2019.csv", sep=";")
+data <- data[, !names(data) %in% c("mois")]
+data$moyenne_celsius <- as.numeric(gsub(",",".",data$moyenne_celsius))
+
+```
+
+```{r, echo=FALSE}
+head(data)
+data <- data[, !names(data) %in% c("", "x", "X")]
+head(data)
+PCA(data, scale.unit = TRUE, ncp = 2, graph = TRUE)
+```
+
