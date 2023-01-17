@@ -63,26 +63,6 @@ indi_sum <- read.csv(
   sep = ","
 )
 
-indi_sector_count <- read.csv(
-  "./computedDatasets/unavailabilityBySectorCount.csv",
-  header = TRUE,
-  sep = ","
-)
-indi_sector_sum <- read.csv(
-  "./computedDatasets/unavailabilityBySectorSum.csv",
-  header = TRUE,
-  sep = ","
-)
-indi_kind_count <- read.csv(
-  "./computedDatasets/unavailabilityByKindCount.csv",
-  header = TRUE,
-  sep = ","
-)
-indi_kind_sum <- read.csv(
-  "./computedDatasets/unavailabilityByKindSum.csv",
-  header = TRUE,
-  sep = ","
-)
 indi_sector_cause_count <- read.csv(
   "./computedDatasets/unavailabilityBySectorCauseCount.csv",
   header = TRUE,
@@ -114,39 +94,6 @@ indi_sector_cause_kind_sum <- read.csv(
   sep = ","
 )
 
-indi_sector_count_graph <- plotter2(
-  indi_sector_count,
-  x_vals = indi_sector_count$filiere,
-  y_vals = indi_sector_count$count,
-  title = "Indisponibilité par secteur",
-  xlab = "Secteur",
-  ylab = "Nombre d'indisponibilités"
-)
-
-indi_sector_sum_graph <- plotter2(
-  indi_sector_sum,
-  x_vals = indi_sector_sum$filiere,
-  y_vals = indi_sector_sum$sum,
-  title = "Indisponibilité par secteur",
-  xlab = "Secteur",
-  ylab = "Somme des indisponibilités (GW)"
-)
-indi_kind_count_graph <- plotter2(
-  indi_kind_count,
-  x_vals = indi_kind_count$kind,
-  y_vals = indi_kind_count$count,
-  title = "Indisponibilité par type",
-  xlab = "Type",
-  ylab = "Nombre d'indisponibilités"
-)
-indi_kind_sum_graph <- plotter2(
-  indi_kind_sum,
-  x_vals = indi_kind_sum$kind,
-  y_vals = indi_kind_sum$sum,
-  title = "Indisponibilité par type",
-  xlab = "Type",
-  ylab = "Somme des indisponibilités (GW)"
-)
 indi_sector_cause_count_graph <- plotter3(
   indi_sector_cause_count,
   x_vals = indi_sector_cause_count$filiere,
@@ -188,28 +135,28 @@ indi_kind_cause_sum_graph <- plotter3(
   ylab = "Somme des indisponibilités (GW)"
 )
 
-# indi_sector_cause_kind_count_graph <- plotter4(
-#   indi_sector_cause_kind_count,
-#   group = indi_sector_cause_kind_count$filiere,
-#   x_vals = indi_sector_cause_kind_count$kind,
-#   y_vals = indi_sector_cause_kind_count$count,
-#   fill = indi_sector_cause_kind_count$cause,
-#   fill_name = "Cause",
-#   title = "Indisponibilité par secteur, cause et type",
-#   xlab = "Secteur",
-#   ylab = "Nombre d'indisponibilités"
-# )
-# indi_sector_cause_kind_sum_graph <- plotter4(
-#   indi_sector_cause_kind_sum,
-#   group = indi_sector_cause_kind_sum$filiere,
-#   x_vals = indi_sector_cause_kind_sum$kind,
-#   y_vals = indi_sector_cause_kind_sum$sum,
-#   fill = indi_sector_cause_kind_sum$cause,
-#   fill_name = "Cause",
-#   title = "Indisponibilité par secteur, cause et type",
-#   xlab = "Secteur",
-#   ylab = "Somme des indisponibilités (GW)"
-# )
+indi_sector_cause_kind_count_graph <- plotter4(
+  indi_sector_cause_kind_count,
+  group = indi_sector_cause_kind_count$filiere,
+  x_vals = indi_sector_cause_kind_count$kind,
+  y_vals = indi_sector_cause_kind_count$count,
+  fill = indi_sector_cause_kind_count$cause,
+  fill_name = "Cause",
+  title = "Indisponibilité par secteur, cause et type",
+  xlab = "Secteur",
+  ylab = "Nombre d'indisponibilités"
+)
+indi_sector_cause_kind_sum_graph <- plotter4(
+  indi_sector_cause_kind_sum,
+  group = indi_sector_cause_kind_sum$filiere,
+  x_vals = indi_sector_cause_kind_sum$kind,
+  y_vals = indi_sector_cause_kind_sum$sum,
+  fill = indi_sector_cause_kind_sum$cause,
+  fill_name = "Cause",
+  title = "Indisponibilité par secteur, cause et type",
+  xlab = "Secteur",
+  ylab = "Somme des indisponibilités (GW)"
+)
 
 indi_sector_count_year <- indi_count %>%
   ggplot(aes(x = begin, y = count, group = filiere, color = filiere)) +
@@ -231,28 +178,20 @@ indi_sector_sum_year <- indi_sum %>%
     color = "filiere"
   )
 
-# print(indi_sector_count_year)
-# print(indi_sector_sum_year)
-# print(indi_sector_count_graph)
-# print(indi_sector_sum_graph)
-# print(indi_kind_count_graph)
-# print(indi_kind_sum_graph)
-# print(indi_sector_cause_count_graph)
-# print(indi_sector_cause_sum_graph)
-# print(indi_kind_cause_count_graph)
-# print(indi_kind_cause_sum_graph)
+print(indi_sector_count_year)
+print(indi_sector_sum_year)
+print(indi_sector_cause_count_graph)
+print(indi_sector_cause_sum_graph)
+print(indi_kind_cause_count_graph)
+print(indi_kind_cause_sum_graph)
 # print(indi_sector_cause_kind_count_graph)
 # print(indi_sector_cause_kind_sum_graph)
 
 
-# save_to_file(indi_sector_count_year, "unavailabilityBySectorYearCount.png", 1)
-# save_to_file(indi_sector_count_graph, "unavailabilityBySectorCount.png", 1)
-# save_to_file(indi_sector_sum_graph, "unavailabilityBySectorSum.png", 1)
-# save_to_file(indi_kind_count_graph, "unavailabilityByKindCount.png", 1)
-# save_to_file(indi_kind_sum_graph, "unavailabilityByKindSum.png", 1)
-# save_to_file(indi_sector_cause_count_graph, "unavailabilityBySectorCauseCount.png", 1)
-# save_to_file(indi_sector_cause_sum_graph, "unavailabilityBySectorCauseSum.png", 1)
-# save_to_file(indi_kind_cause_count_graph, "unavailabilityByKindCauseCount.png", 1)
-# save_to_file(indi_kind_cause_sum_graph, "unavailabilityByKindCauseSum.png", 1)
+save_to_file(indi_sector_count_year, "unavailabilityBySectorYearCount.png", 1)
+save_to_file(indi_sector_cause_count_graph, "unavailabilityBySectorCauseCount.png", 1)
+save_to_file(indi_sector_cause_sum_graph, "unavailabilityBySectorCauseSum.png", 1)
+save_to_file(indi_kind_cause_count_graph, "unavailabilityByKindCauseCount.png", 1)
+save_to_file(indi_kind_cause_sum_graph, "unavailabilityByKindCauseSum.png", 1)
 # save_to_file(indi_sector_cause_kind_count_graph, "unavailabilityBySectorCauseKindCount.png", 1)
 # save_to_file(indi_sector_cause_kind_sum_graph, "unavailabilityBySectorCauseKindSum.png", 1)

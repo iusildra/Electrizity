@@ -45,7 +45,7 @@ object Riviere {
         date.getMonthValue(),
         date.getYear(),
         row.getString(1),
-        row.getDouble(2)
+        row.getDouble(2)/1e6
       )
     })
     val t1 = System.nanoTime()

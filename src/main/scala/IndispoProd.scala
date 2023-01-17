@@ -208,17 +208,6 @@ object UnavailabilityBySector extends App {
   // **************
   // * BY SECTOR *
   // **************
-  val countBySector = data
-    .groupBy("filiere")
-    .count()
-    .orderBy("count")
-
-  val sumBySector = data
-    .groupBy("filiere")
-    .sum("impact")
-    .withColumnRenamed("sum(impact)", "sum_impact")
-    .orderBy("sum_impact")
-
   val countBySectorAndCause = data
     .groupBy("filiere", "cause")
     .count()
@@ -233,17 +222,6 @@ object UnavailabilityBySector extends App {
   // ************
   // * BY KIND *
   // ************
-
-  val countByKind = data
-    .groupBy("kind")
-    .count()
-    .orderBy("count")
-
-  val sumByKind = data
-    .groupBy("kind")
-    .sum("impact")
-    .withColumnRenamed("sum(impact)", "sum_impact")
-    .orderBy("sum_impact")
 
   val countByKindAndCause = data
     .groupBy("kind", "cause")
@@ -276,10 +254,6 @@ object UnavailabilityBySector extends App {
   CSVWriter.writeToCsv("unavailabilitiesBySectorYearCount", countBySectorYear)
   CSVWriter.writeToCsv("unavailabilitiesBySectorYearSum", sumBySectorYear)
 
-  CSVWriter.writeToCsv("unavailabilityBySectorCount", countBySector)
-  CSVWriter.writeToCsv("unavailabilityBySectorSum", sumBySector)
-  CSVWriter.writeToCsv("unavailabilityByKindCount", countByKind)
-  CSVWriter.writeToCsv("unavailabilityByKindSum", sumByKind)
   CSVWriter.writeToCsv(
     "unavailabilityBySectorCauseCount",
     countBySectorAndCause
