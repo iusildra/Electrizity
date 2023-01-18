@@ -28,6 +28,6 @@ dataEtPopu <- merge(dataEtPopu, popuDepartement, by.x=c("annee","departement"), 
 names(dataEtPopu)[names(dataEtPopu) == "habitant.x"] <- "habitant_region"
 names(dataEtPopu)[names(dataEtPopu) == "habitant.y"] <- "habitant_departement"
 
-dataEtPopu <- dataEtPopu[, !names(dataEtPopu) %in% c("")]
+dataEtPopu <- dataEtPopu[, !names(dataEtPopu) %in% c("centroid")]
 
-write.csv2(dataEtPopu, paste(path, "/computedDatasets/ConsommationGaz2011_2019.csv", sep=""), row.names=TRUE)
+write.csv(dataEtPopu, paste(path, "/computedDatasets/ConsommationGaz2011_2019.csv", sep=""), row.names = FALSE)
