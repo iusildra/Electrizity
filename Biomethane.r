@@ -31,7 +31,6 @@ plotter3 <- function(data, x_vals, y_vals, color, color_name, title, xlab, ylab)
 
 plotter4 <- function(data, group, x_vals, y_vals, fill, fill_name, title, xlab, ylab) {
   new_group <- unique(as.factor(group))
-  print("cc")
   plt <- ggplot(data, aes(x = x_vals, y = y_vals, fill = fill)) +
     geom_bar(position = "dodge", stat = "identity") +
     facet_wrap(new_group) +
@@ -42,7 +41,6 @@ plotter4 <- function(data, group, x_vals, y_vals, fill, fill_name, title, xlab, 
       fill = fill_name
     ) +
     theme(legend.position = "bottom")
-    print("cc")
   return(plt)
 }
 
@@ -62,14 +60,8 @@ biomethane_typology <- read.csv(
   sep = ","
 )
 
-biomethane_year_region_dep <- read.csv(
-  "./computedDatasets/biomethane-yearRegionDepartment.csv",
-  header = TRUE,
-  sep = ","
-)
-
-biomethane_year_region_dep_typo <- read.csv(
-  "./computedDatasets/biomethane-yearRegionDepartmentTypology.csv",
+biomethane_year_region <- read.csv(
+  "./computedDatasets/biomethane-yearRegion.csv",
   header = TRUE,
   sep = ","
 )
@@ -102,18 +94,46 @@ year_typology_sum <- plotter3(
   "Puissance totale (TWh)"
 )
 
-year_region_typology <- plotter4(
-  biomethane_year_region_typo,
-  biomethane_year_region_typo$region,
-  as.integer(biomethane_year_region_typo$year),
-  biomethane_year_region_typo$avgTotalPower,
-  biomethane_year_region_typo$typology,
-  "Typologie",
-  "Moyenne de la puissance totale fournie en biométhane, par typologie, par région et par année",
+# year_region_typology <- plotter4(
+#   biomethane_year_region_typo,
+#   biomethane_year_region_typo$region,
+#   as.integer(biomethane_year_region_typo$year),
+#   biomethane_year_region_typo$avgTotalPower,
+#   biomethane_year_region_typo$typology,
+#   "Typologie",
+#   "Moyenne de la puissance totale fournie en biométhane, par typologie, par région et par année",
+#   "Année",
+#   "Puissance totale (GWh)"
+# )
+
+year_region_avg <- plotter3(
+  biomethane_year_region,
+  as.integer(biomethane_year_region$year),
+  biomethane_year_region$avgTotalPower,
+  biomethane_year_region$region,
+  "Region",
+  "Moyenne de la puissance totale fournie en biométhane, par région et par année",
   "Année",
   "Puissance totale (GWh)"
 )
 
+year_region_sum <- plotter3(
+  biomethane_year_region,
+  as.integer(biomethane_year_region$year),
+  biomethane_year_region$sumTotalPower / 1e3,
+  biomethane_year_region$region,
+  "Region",
+  "Somme de la puissance totale fournie en biométhane, par région et par année",
+  "Année",
+  "Puissance totale (TWh)"
+)
+
 print(year_typology_avg)
 print(year_typology_sum)
-print(year_region_typology)
+print(year_region_avg)
+print(year_region_sum)
+
+save_to_file(year_typology_avg, "biomethaneYearTypologyAvg.png", 1)
+save_to_file(year_typology_sum, "biomethaneYearTypologySum.png", 1)
+save_to_file(year_region_avg, "biomethaneYearRegionAvg.png", 1)
+save_to_file(year_region_sum, "biomethaneYearRegionSum.png", 1)

@@ -77,8 +77,8 @@ object Biomethane extends App {
 
   val data = CapacityQuantityBiomethaneInjection.raw_data
 
-  val yearRegionDepartment = data
-    .groupBy("year", "region", "department")
+  val yearRegion = data
+    .groupBy("year", "region")
     .agg(
       avg("totalPower").as("avgTotalPower"),
       sum("totalPower").as("sumTotalPower")
@@ -86,13 +86,6 @@ object Biomethane extends App {
 
   val typology = data
     .groupBy("year", "typology")
-    .agg(
-      avg("totalPower").as("avgTotalPower"),
-      sum("totalPower").as("sumTotalPower")
-    )
-
-  val yearRegionDepartmentTypology = data
-    .groupBy("year", "region", "department", "typology")
     .agg(
       avg("totalPower").as("avgTotalPower"),
       sum("totalPower").as("sumTotalPower")
@@ -106,18 +99,13 @@ object Biomethane extends App {
     )
 
   CSVWriter.writeToCsv(
-    "biomethane-yearRegionDepartment",
-    yearRegionDepartment
+    "biomethane-yearRegion",
+    yearRegion
   )
 
   CSVWriter.writeToCsv(
     "biomethane-yearTypology",
     typology
-  )
-
-  CSVWriter.writeToCsv(
-    "biomethane-yearRegionDepartmentTypology",
-    yearRegionDepartmentTypology
   )
 
   CSVWriter.writeToCsv(
