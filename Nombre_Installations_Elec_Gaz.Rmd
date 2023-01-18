@@ -13,7 +13,7 @@ transform <- read.csv("datasets/installations-production-elec-gaz.csv", sep=";")
 transform["s_3_prod_d_filiere"][transform["s_3_prod_d_filiere"] == "Therm"] <- "Thermique"
 transform <- transform[, !names(transform) %in% c("code_epci", "s_3_prod_i_regime_d_exploitation", "1_f_code_insee_pdl", "X1_f_code_insee_pdl")]
 names(transform)[names(transform) == "1_f_commune_pdl"] <- "commune"
-names(transform)[names(transform) == "X1_f_commune_pdl"] <- "commune"
+names(transform)[names(transform) == "X1_f_commune_01pdl"] <- "commune"
 names(transform)[names(transform) == "date_des_donnees"] <- "date"
 names(transform)[names(transform) == "s_3_prod_d_filiere"] <- "filiere"
 

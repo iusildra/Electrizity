@@ -1,11 +1,11 @@
 library(tidyverse)
 library(FactoMineR)
-library(rstudioapi) 
+library(rstudioapi)
 path <- getSourceEditorContext()$path
 path <- dirname(path)
 
-elecMonth <- read.csv(paste(path, "/datasets/bilan-electrique-transpose.csv", sep=""), sep=";")
-temperatureMonth <- read.csv(paste(path, "/datasets/temperature-quotidienne-regionale.csv", sep=""), sep=";")
+elecMonth <- read.csv(paste(path, "/datasets/bilan-electrique-transpose.csv", sep=""), fileEncoding = "UTF-8", sep=";")
+temperatureMonth <- read.csv(paste(path, "/datasets/temperature-quotidienne-regionale.csv", sep=""), fileEncoding = "UTF-8", sep=";")
 
 elecMonth <- elecMonth[, !names(elecMonth) %in% c("Catégorie.client")]
 elecMonth$Jour <- gsub('.{3}$', '', elecMonth$Jour)

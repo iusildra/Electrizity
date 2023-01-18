@@ -11,7 +11,7 @@ output: html_document
 #élec
 library(tidyverse)
 library(FactoMineR)
-data <- read.csv("computedDatasets/TemperatureConsoElec_Mois2011_2019.csv", sep=";")
+data <- read.csv("computedDatasets/TemperatureConsoElec_Mois2011_2019.csv", fileEncoding = "UTF-8", sep=";")
 data <- data[, !names(data) %in% c("mois")]
 data$moyenne_celsius <- as.numeric(gsub(",",".",data$moyenne_celsius))
 
