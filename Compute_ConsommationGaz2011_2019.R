@@ -16,8 +16,8 @@ names(data1119)[names(data1119) == "Libellé.Région"] <- "region"
 
 data1119$centroidLng <- gsub("^.*?,","",data1119$centroid)
 data1119$centroidLat <- gsub(",.*","",data1119$centroid)
-data1119$centroidLng <- gsub(".",",",data1119$centroid)
-data1119$centroidLat <- gsub(".",",",data1119$centroid)
+data1119$centroidLng <- gsub("\.",",",data1119$centroid)
+data1119$centroidLat <- gsub("\.",",",data1119$centroid)
 
 popuRegion <- read.csv(paste(path, "/datasets/population_region_2011_2019.csv", sep=""), sep=";")
 popuDepartement <- read.csv(paste(path, "/datasets/population_departement_2011_2019.csv", sep=""), sep=";")
