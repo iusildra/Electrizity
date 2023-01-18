@@ -1,4 +1,5 @@
 library(rstudioapi)
+library(stringr)
 path <- getSourceEditorContext()$path
 path <- dirname(path)
 
@@ -19,12 +20,14 @@ data1119$centroidLat <- gsub(",.*","",data1119$centroid)
 data1119$centroidLng <- gsub("\.",",",data1119$centroid)
 data1119$centroidLat <- gsub("\.",",",data1119$centroid)
 
-popuRegion <- read.csv(paste(path, "/datasets/population_region_2011_2019.csv", sep=""), sep=";")
-popuDepartement <- read.csv(paste(path, "/datasets/population_departement_2011_2019.csv", sep=""), sep=";")
+popuRegion <- read.csv(paste(path, "/datasets/population_region_2011_2019.csv", sep=""), fileEncoding = "UTF-8", sep=";")
+popuDepartement <- read.csv(paste(path, "/datasets/population_departement_2011_2019.csv", sep=""), fileEncoding = "UTF-8", sep=";")
 
 dataEtPopu <- merge(data1119, popuRegion, by.x=c("annee","region"), by.y=c("annee","region"))
 dataEtPopu <- merge(dataEtPopu, popuDepartement, by.x=c("annee","departement"), by.y=c("annee","departement"))
 names(dataEtPopu)[names(dataEtPopu) == "habitant.x"] <- "habitant_region"
 names(dataEtPopu)[names(dataEtPopu) == "habitant.y"] <- "habitant_departement"
+
+dataEtPopu <- dataEtPopu[, !names(dataEtPopu) %in% c("")]
 
 write.csv2(dataEtPopu, paste(path, "/computedDatasets/ConsommationGaz2011_2019.csv", sep=""), row.names=TRUE)
