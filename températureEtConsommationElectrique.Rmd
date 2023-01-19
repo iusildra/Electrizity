@@ -15,28 +15,38 @@ library(FactoMineR)
 data <- read.csv("computedDatasets/TemperatureConsoElec_Mois2011_2019.csv", fileEncoding = "UTF-8", sep=",")
 data$moyenne_celsius <- as.numeric(gsub(",",".",data$moyenne_celsius))
 data$puissance_moyenne_mois_w <- as.numeric(data$puissance_moyenne_mois_w)
-dataACP <- data[, !names(data) %in% c("mois")]
-
-
+data$mois <- as.numeric(parse_date_time(data$mois, "Y-m"))
 ```
 
 ```{r, echo=FALSE}
+dataACP <- data[, !names(data) %in% c("mois")]
 PCA(dataACP, scale.unit = TRUE, ncp = 2, graph = TRUE)
 ```
 
 ```{r, echo=FALSE}
 x <- data$moyenne_celsius
 
-y <- parse_date_time(data$mois, "Y-m")
-
-relation <- lm(y~x)
+y <- data$mois
 
 plot(y,x,col = "blue",main = "Régression linéraire de la température depuis 2011 jusqu'à 2019",
-abline(lm(x~y)),cex = 1.3,pch = 16,xlab = "Weight in Kg",ylab = "Height in cm")
-
+abline(lm(x~y)),cex = 1.3,pch = 16,xlab = "Année",ylab = "Moyenne de température")
+summary(lm(x~y))
 #a <- data.frame(x = 170)
 #result <-  predict(relation,a)
 #print(result)
 ```
+
+```{r, echo=FALSE}
+ggplot(data, aes(x = mois, y = moyenne_celsius)) +
+    geom_point() +
+    geom_smooth(formula = y ~ sin(2*pi*x/12) + cos(2*pi*x/12), color = "red", method = "lm", linetype = 2, alpha = .5) + #nolint
+    labs(
+      title =
+        "title",
+      x = "année",
+      y = "température"
+    )
+```
+
 
 
