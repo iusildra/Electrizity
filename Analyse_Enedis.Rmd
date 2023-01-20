@@ -1,0 +1,44 @@
+---
+title: "Untitled"
+author: "Dorian Correia-Mateus"
+date: "20/01/2023"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+library(tidyverse)
+library(lubridate)
+library(FactoMineR)
+library(factoextra)
+library(ggplot2)
+
+data <- read.csv("computedDatasets/ConsoMWhElecGazENEDIS2011_2021.csv", sep=",")
+
+temperature <- read.csv("datasets/temperature-quotidienne-regionale.csv", sep=";")
+temperature$Date <- gsub('.{6}$', '', temperature$Date)
+head(temperature)
+names(temperature)[names(temperature) == "TMoy..Â.C."] <- "moyenne_celsius"
+temperature <- aggregate(moyenne_celsius ~ Date, temperature, mean)
+```
+
+```{r, echo=FALSE}
+
+# Grouped
+ggplot(data, aes(x=factor(annee), y=totale, fill=filiere, color=filiere)) + 
+    geom_bar(position="dodge", stat="identity")
+
+
+data <- merge(data, temperature,  by.x = "annee", by.y = "Date")
+df <- filter(.data = data, filiere == "Electricite")
+
+#Elec
+res <- PCA(df[c("moyenne_celsius", "totale")], scale.unit = TRUE, graph = TRUE)
+plot(res)
+fviz_contrib(res, choice = "var", axes = 1)
+fviz_contrib(res, choice = "var", axes = 2)
+
+#Gaz
+df <- filter(.data = data, filiere == "Gaz")
+PCA(df[c("moyenne_celsius", "totale")], scale.unit = TRUE, graph = TRUE)
+```
+
