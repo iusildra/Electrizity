@@ -178,8 +178,8 @@ object UnavailabilityBySector extends App {
 
   def getImpact: (Double, Double) => Double =
     (max: Double, available: Double) => max - available
-  def extractYear: (Timestamp => Int) = (ts: Timestamp) =>
-    ts.toLocalDateTime.getYear
+  def extractYear: (Timestamp => Int) =
+    (ts: Timestamp) => ts.toLocalDateTime.getYear
 
   val lastVersion = originData
     .groupBy("id")

@@ -75,6 +75,8 @@ object Biomethane extends App {
   implicit val stringIntEncoder =
     org.apache.spark.sql.Encoders.STRING
 
+  val spark = CapacityQuantityBiomethaneInjection.spark
+
   val data = CapacityQuantityBiomethaneInjection.raw_data
 
   val yearRegion = data

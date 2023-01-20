@@ -112,7 +112,7 @@ indi_sector_cause_sum_graph <- plotter3(
   color_name = "Cause",
   title = "Indisponibilité par secteur et cause",
   xlab = "Secteur",
-  ylab = "Somme des indisponibilités (GW)"
+  ylab = "Somme des indisponibilités (TW)"
 )
 indi_kind_cause_count_graph <- plotter3(
   indi_kind_cause_count,
@@ -132,7 +132,7 @@ indi_kind_cause_sum_graph <- plotter3(
   color_name = "Cause",
   title = "Indisponibilité par type et cause",
   xlab = "Type",
-  ylab = "Somme des indisponibilités (GW)"
+  ylab = "Somme des indisponibilités (TW)"
 )
 
 indi_sector_cause_kind_count_graph <- plotter4(
@@ -155,7 +155,7 @@ indi_sector_cause_kind_sum_graph <- plotter4(
   fill_name = "Cause",
   title = "Indisponibilité par secteur, cause et type",
   xlab = "Secteur",
-  ylab = "Somme des indisponibilités (GW)"
+  ylab = "Somme des indisponibilités (TW)"
 )
 
 indi_sector_count_year <- indi_count %>%
@@ -174,7 +174,7 @@ indi_sector_sum_year <- indi_sum %>%
   labs(
     title = "Indisponibilité par secteur et année",
     x = "Début de l'indisponibilité",
-    y = "Somme des indisponibilités (GW)",
+    y = "Somme des indisponibilités (TW)",
     color = "filiere"
   )
 
@@ -189,6 +189,7 @@ print(indi_kind_cause_sum_graph)
 
 
 save_to_file(indi_sector_count_year, "unavailabilityBySectorYearCount.png", 1)
+save_to_file(indi_sector_sum_year, "unavailabilityBySectorYearSum.png", 1)
 save_to_file(indi_sector_cause_count_graph, "unavailabilityBySectorCauseCount.png", 1)
 save_to_file(indi_sector_cause_sum_graph, "unavailabilityBySectorCauseSum.png", 1)
 save_to_file(indi_kind_cause_count_graph, "unavailabilityByKindCauseCount.png", 1)
